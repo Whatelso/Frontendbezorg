@@ -20,6 +20,7 @@
                 <th>ID</th>
                 <th>Naam</th>
                 <th>Prijs</th>
+                <th>Acties</th>
             </tr>
         </thead>
         <tbody id="maaltijden-tbody">
@@ -90,6 +91,23 @@
 
     }
 
+    function deleteMaaltijd(id) {
+        fetch('https://bezorg.azurewebsites.net/api/maaltijd/' + id, {
+            method: 'DELETE', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(() => {
+                console.log('Success:');
+                getAllMaaltijden();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+
     function fillTable(maaltijdenLijst) {
         document.getElementById('maaltijden-tbody').innerHTML = '';
 
@@ -102,6 +120,7 @@
             maaltijdenTbodyInhoud += '<td>' + maaltijd.id + '</td>';
             maaltijdenTbodyInhoud += '<td>' + maaltijd.naam + '</td>';
             maaltijdenTbodyInhoud += '<td>' + maaltijd.prijs + '</td>';
+            maaltijdenTbodyInhoud += '<td><button class="btn btn-danger" onclick="deleteMaaltijd(' + maaltijd.id + ')">Verwijderen</button></td>';
 
             maaltijdenTbodyInhoud += '</tr>';
         });
