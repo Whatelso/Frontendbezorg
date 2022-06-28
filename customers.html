@@ -1,12 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klanten</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>Klanten</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Adres</th>
+            </tr>
+        </thead>
+        <tbody id="klanten-tbody">
+            <tr>
+                <td>1</td>
+                <td>Martijn</td>
+                <td>Ergens 1, 1111AA, Ergens</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Henk</td>
+                <td>Ergens 1, 1111AA, Ergens</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
 <script>
-    function go(){
+    function fillTable(klantenLijst) {
+        document.getElementById('klanten-tbody').innerHTML = '';
+
+        var klantenTbodyInhoud = '';
+
+        // Ga over klanten lijst
+        klantenLijst.forEach(klant => {
+            klantenTbodyInhoud += '<tr>';
+
+                klantenTbodyInhoud += '<td>' + klant.id + '</td>';
+                klantenTbodyInhoud += '<td>' + klant.naam + '</td>';
+                klantenTbodyInhoud += '<td>' + klant.adres + '</td>';
+            
+            klantenTbodyInhoud += '</tr>';
+        });
+
+        document.getElementById('klanten-tbody').innerHTML = klantenTbodyInhoud;
+    }
+
+    function getAllKlanten() {
+        fetch("https://bezorg.azurewebsites.net/api/klant")
+            .then(response => response.json())
+            .then(data => fillTable(data));
+    }
+
+    getAllKlanten();
+
+
+
+
+
+    
+    function go() {
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-            if(this.readyState == 4){
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
                 alert("terug van de backend");
                 console.log(this.responseText);
                 let alleBestellingen = JSON.parse(this.responseText);
-                for (let i = 0; i <alleBestellingen.length; i++) {
+                for (let i = 0; i < alleBestellingen.length; i++) {
                     document.getElementById("detabel").innerHTML += `<tr><td>${alleBestellingen[i].id}</td><td>${alleBestellingen[i].totalprice}</td></tr>`;
                 }
             }
@@ -14,7 +87,7 @@
         xhr.open("GET", "https://bezorg.azurewebsites.net/alle/bestellingen", true);
         xhr.send();
     }
-    function aanmaak(){
+    function aanmaak() {
         alert("ik ga aanmaken")
         var ingevoerd = document.getElementById("gebruikerinput");
         console.log(ingevoerd.value);
@@ -24,22 +97,14 @@
         var dejson = JSON.stringify(debestelling);
 
         var xhrheen = new XMLHttpRequest();
-        xhrheen.onreadystatechange = dieanderefunction;  
-        xhrheen.open("POST","https://bezorg.azurewebsites.net/nieuwebestelling", true); 
-        xhrheen.setRequestHeader("Content-Type","application/json")
-        xhrheen.send(dejson);     
+        xhrheen.onreadystatechange = dieanderefunction;
+        xhrheen.open("POST", "https://bezorg.azurewebsites.net/nieuwebestelling", true);
+        xhrheen.setRequestHeader("Content-Type", "application/json")
+        xhrheen.send(dejson);
 
     }
-    function dieanderefunction(){
+    function dieanderefunction() {
         alert("bestelling is opgeslagen")
     }
-    
+
 </script>
-totaalprijs:<input id="gebruikerinput">
-<button onclick="aanmaak()">aanmaken die bestelling</button>
-<hr>
-
-<button onclick="go()"> go now </button>
-<table border="1" id="detabel">
-
-</table>
