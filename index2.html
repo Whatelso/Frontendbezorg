@@ -1,0 +1,58 @@
+{% extends "registersys/base.html" %}
+{% block title %}Index{% endblock %} 
+{% block head %}{% endblock %} 
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class= "col-12" id="currentpage">
+        <h3>Dashboard</h3>
+    </div>
+  </div>
+  <div class="row">
+      <div class= "col-12" id="whiteline">
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-1" id="whitecolumn">
+    </div>
+    <div class="col-2" id="icons">
+        <a href="{% url 'index' %}"><i class="material-icons w3-xxxlarge" id="dashboard">home</i></a>
+    </div>
+    <div class="col-2" id="icons">
+        <a href="{% url 'administration' %}"><i class="material-icons w3-xxxlarge" id="booklink">book</i></a>
+    </div>
+    <div class="col-2" id="icons">
+        <a href="{% url 'login' %}"><i class="material-icons w3-xxxlarge">face</i></a>
+    </div>
+    <div class="col-2" id="icons">
+        <a href="{% url 'inventory' %}"><i class="material-icons w3-xxxlarge">ballot</i></a>
+    </div>
+    <div class="col-2" id="icons">
+        <a href="{% url 'order_screen' %}"><i class="material-icons w3-xxxlarge">monetization_on</i></a>
+    </div>
+    <div class="col-1" id="whitecolumn">
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-1" id="whitecolumn">
+      </div>
+      <div class="col-2" id="icons">
+          <a href="{% url 'index' %}">Dashboard</a>
+      </div>
+      <div class="col-2" id="icons">
+          <a href="{% url 'administration' %}">Administration</a>
+      </div>
+      <div class="col-2" id="icons">
+          <a href="{% url 'login' %}">Login</a>
+      </div>
+      <div class="col-2" id="icons">
+          <a href="{% url 'inventory' %}">Inventory</a>
+      </div>
+      <div class="col-2" id="icons">
+          <a href="{% url 'order_screen' %}">Sales</a>
+      </div>
+      <div class="col-1" id="whitecolumn">
+      </div>
+    </div>
+</div>
+{% endblock %}

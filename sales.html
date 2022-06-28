@@ -1,0 +1,62 @@
+{% extends "registersys/base.html" %}
+{% block title %}Index{% endblock %} 
+{% block head %}{% endblock %} 
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class= "col-12" id="currentpage">
+            <h3>Sales</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <form action="{% url 'search' %}" method="post" class=form-group>
+                {% csrf_token %}
+                    <div class="search">
+                        <input type="text" name="item">
+                        <button type="submit" class="button">Search</button>
+                    </div>
+            </form>
+        </div>
+        <div class="col-3">
+            <form action="{% url 'payment' %}" method="post" class=form-group>
+                {% csrf_token %}
+                <div>
+                    <button type="submit" class="button" >Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <table id="orderlist">
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                </tr>
+                {% for item in shopping_cart.items.all %}
+                <tr>
+                    <td>{{ item.sku }} </td>
+                    <td>{{ item.price }} </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>Total Price</td>
+                    <td> {{ shopping_cart.total_price }} </td>
+                </tr>
+            </table>
+            
+        </div>
+        <div class="col-3">
+                <form action="{% url 'clear_cart' %}" method="post" class=form-group>
+                    {% csrf_token %}
+                    <div>
+                        <button type="submit" class="button" >Clear Cart</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+
+
+{% endblock %}

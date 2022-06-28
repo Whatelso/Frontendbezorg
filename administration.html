@@ -1,0 +1,84 @@
+{% extends "registersys/base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" id="currentpage">
+            <h3>Bookkeeping</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="admincolumns">
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        Revenue
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        CoGS
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Number of Items Sold
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Status
+                    </td>
+                </tr>
+                </tr>
+                <tr>
+                    {% for days in administration_days.all %}
+                    <colgroup span=1 class="colgroupcolumns">
+                        <col>
+                        <th> {{ days.corresponding_day }}</th>
+                    <tr>
+                        <td>
+                            {{ days.revenue }}
+                        </td>
+                    </tr>
+                <tr>
+                    <td>
+                        {{ days.cogs }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ days.number_of_items_sold }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ days.status }}
+                    </td>
+                </tr>
+                </col>
+                </colgroup>
+                {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <form action="{% url 'close_day' %}" method="post" class=form-group>
+                {% csrf_token %}
+                <div>
+                    <button type="submit" class="button">Close Open Day(s)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

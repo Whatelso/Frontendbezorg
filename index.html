@@ -1,0 +1,45 @@
+<script>
+    function go(){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(this.readyState == 4){
+                alert("terug van de backend");
+                console.log(this.responseText);
+                let alleBestellingen = JSON.parse(this.responseText);
+                for (let i = 0; i <alleBestellingen.length; i++) {
+                    document.getElementById("detabel").innerHTML += `<tr><td>${alleBestellingen[i].id}</td><td>${alleBestellingen[i].totalprice}</td></tr>`;
+                }
+            }
+        }
+        xhr.open("GET", "http://localhost:8082/alle/bestellingen", true);
+        xhr.send();
+    }
+    function aanmaak(){
+        alert("ik ga aanmaken")
+        var ingevoerd = document.getElementById("gebruikerinput");
+        console.log(ingevoerd.value);
+
+        var debestelling = {};
+        debestelling.totalprice = ingevoerd.value
+        var dejson = JSON.stringify(debestelling);
+
+        var xhrheen = new XMLHttpRequest();
+        xhrheen.onreadystatechange = dieanderefunction;  
+        xhrheen.open("POST","http://localhost:8082/nieuwebestelling", true); 
+        xhrheen.setRequestHeader("Content-Type","application/json")
+        xhrheen.send(dejson);     
+
+    }
+    function dieanderefunction(){
+        alert("bestelling is opgeslagen")
+    }
+    
+</script>
+totaalprijs:<input id="gebruikerinput">
+<button onclick="aanmaak()">aanmaken die bestelling</button>
+<hr>
+
+<button onclick="go()"> go now </button>
+<table border="1" id="detabel">
+
+</table>

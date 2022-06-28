@@ -1,0 +1,41 @@
+{% extends "registersys/base.html" %}
+{% block title %}{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<div id="loginpage">
+    <div class="row">
+        <div class="col-12">
+            <h3>Login</h3> </br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" id="loginform">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input name="username" id="username" type="text" />
+                <input name="password" id="password" type="password" />
+                <input type="submit" class="button" id="loginsubmit" value="Login" />
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h2>
+                Other Options
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" id="registerbutton">
+            <div>
+                <a href="{% url 'register' %}"><button class="button">Register</button></a>
+            </div>
+        </div>
+        <div class="col-6" id="logoutbutton">
+            <div>
+                <a href="{% url 'logout' %}"><button class="button">Logout</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

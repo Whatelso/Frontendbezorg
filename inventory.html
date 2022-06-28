@@ -1,0 +1,86 @@
+{% extends "registersys/base.html" %}
+{% block title %}Index{% endblock %} 
+{% block head %}{% endblock %} 
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class= "col-12" id="currentpage">
+            <h3>Inventory</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <form action="{% url 'search' %}" method="post" class=form-group>
+                {% csrf_token %}
+                <div class="search">
+                    <input type="text" name="item">
+                    <button type="submit" class="button">Search</button>
+                </div>
+            </form>
+            <table>
+                <tr>
+                <th> SKU</th>
+                <th>Status</th>
+                <th>Item Quantity in Inventory</th>
+                <th>Item Price</th>
+
+            <form action="{% url 'add_to_order' %}" method="post" class=form-group>
+                {% csrf_token %}
+                {% for item in found_items.all %}
+                    <tr>
+                        <td>                
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="items" class="custom-control-input" id="{{ item.sku }}" value="{{ item.sku }}">
+                                <label class="custom-control-label" for="{{ item.sku }}">{{ item.sku }}</label>
+                            </div>
+                        </td>
+                        <td>
+                            {{ item.status }}
+                        </td>
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+                        <td> {{ item.price }} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                    <div>
+                        <button type="submit" class="button">Add to Orders</button>
+                    </div>
+                </form>
+        </div>
+        <div class="col-3">
+            <h3>Add Item</h3>
+            <form action="{% url 'add_item' %}" method="post" class=add_item_form>
+                {% csrf_token %}
+                <div class = "text">
+                    SKU: <input type="text" name="sku"><br>
+                </div>
+                <div class = "decimal">
+                    Cost  <input type="number" name="cost" min="0" value="0" step="0.01"><br>
+                </div>
+                <div class = "">
+                    Price <input type="number" name="price" min="0" value="0" step="0.01"><br>
+                </div>
+                <div>
+                    Quantity <input type="number" name="quantity" min="1" max="99">
+                </div>
+                <div class = "selection">
+                    status: <select name="status">
+                                <option value="UNSOLD">UNSOLD</option>
+                                <option value="SOLD">SOLD</option>
+                            </select>
+                </div>
+                <div class = "text">
+                    Inputted id: <input type="text" name="online_id"><br>
+                </div>`
+                <div>
+                    <button type="submit" class="button">Confirm Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}

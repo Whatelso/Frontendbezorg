@@ -1,0 +1,35 @@
+{% load static %}
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+      <link href="{% static 'styles.css' %}" rel="stylesheet">
+      {% block head %}
+      <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row" id="logo">
+          <div class="col-6">
+            <h1>Company Name</h1>
+          </div>
+          <div class="col-6" id="navbar">
+              <a href="{% url 'index' %}"><i class="material-icons w3-xxxlarge" id="dashboard">home</i></a>
+              <a href="{% url 'administration' %}"><i class="material-icons w3-xxxlarge" id="booklink">book</i></a>
+              <a href="{% url 'login' %}"><i class="material-icons w3-xxxlarge">face</i></a>
+              <a href="{% url 'inventory' %}"><i class="material-icons w3-xxxlarge">ballot</i></a>
+              <a href="{% url 'order_screen' %}"><i class="material-icons w3-xxxlarge">monetization_on</i></a>
+          </div>
+        </div>
+  <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
