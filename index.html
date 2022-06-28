@@ -11,7 +11,7 @@
                 }
             }
         }
-        xhr.open("GET", "http://localhost:8082/alle/bestellingen", true);
+        xhr.open("GET", "http://bezorg.azurewebsites.net/alle/bestellingen", true);
         xhr.send();
     }
     function aanmaak(){
@@ -25,7 +25,7 @@
 
         var xhrheen = new XMLHttpRequest();
         xhrheen.onreadystatechange = dieanderefunction;  
-        xhrheen.open("POST","http://localhost:8082/nieuwebestelling", true); 
+        xhrheen.open("POST","http://bezorg.azurewebsites.net/nieuwebestelling", true); 
         xhrheen.setRequestHeader("Content-Type","application/json")
         xhrheen.send(dejson);     
 
